@@ -1,9 +1,9 @@
-# EasyChatGPT
+# QuickChatGPT
 This repo is unofficial ChatGPT api.
 
 ### Usage
 ```python
-from EasyChatGPT import *
+from quick_chatgpt import *
 
 config = ChatGPTConfig(
 	chromedriver_path="path/to/chromedriver.exe",
