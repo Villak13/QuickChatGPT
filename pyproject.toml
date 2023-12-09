@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "EasyChatGPT"
 version = "1.0"
 authors = [
-    { name="Villak44" },
+    { name="Villak44", email='metalvillak@gmail.com' },
 ]
 description = "An unofficial Python wrapper for OpenAI's ChatGPT"
 readme = "README.md"
