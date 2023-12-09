@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=40.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "EasyChatGPT"
+version = "1.0"
+authors = [
+    { name="Villak44" },
+]
+description = "An unofficial Python wrapper for OpenAI's ChatGPT"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Windows",
+]
+dependencies = [
+    "selenium>=4.16.0", 
+    "markdownify>=0.11.6"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Villak13/EasyChatGPT/"
+"Bug Tracker" = "https://github.com/Villak13/EasyChatGPT/issues"
