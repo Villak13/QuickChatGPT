@@ -23,7 +23,7 @@ class Selectors(Enum):
 
 def login_manually(chromedriver_path, options, token_folder):
 	print('Login to openai using your account')
-	time.sleep(10)
+	time.sleep(5)
 	
 	driver = uc.Chrome(options=options, service=ChromeService(executable_path=chromedriver_path))
 	driver.get('https://chat.openai.com/auth/login')
