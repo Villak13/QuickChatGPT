@@ -3,7 +3,7 @@ requires = ["setuptools>=40.8.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "EasyChatGPT"
+name = "QuickChatGPT"
 version = "1.0"
 authors = [
     { name="Villak44", email='metalvillak@gmail.com' },
