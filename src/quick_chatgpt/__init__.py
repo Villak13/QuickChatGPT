@@ -8,7 +8,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from config import ChatGPTConfig, Selectors
+from __config__ import ChatGPTConfig, Selectors
 
 # Good luck programmer who have to work with this after me
 # Created by Villak :)
