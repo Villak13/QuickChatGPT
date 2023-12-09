@@ -1,7 +1,7 @@
+import os
 import time
 from enum import Enum
 import undetected_chromedriver as uc
-from selenium.webdriver import ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import ChromeOptions
@@ -25,7 +25,7 @@ def login_manually(chromedriver_path, options, token_folder):
 	print('Login to openai using your account')
 	time.sleep(5)
 	
-	driver = uc.Chrome(options=options, service=ChromeService(executable_path=chromedriver_path))
+	driver = uc.Chrome(options=options, driver_executable_path=chromedriver_path)
 	driver.get('https://chat.openai.com/auth/login')
 
 	WebDriverWait(driver, 2000).until(lambda _driver: _driver.current_url.endswith('chat.openai.com/'))
@@ -49,6 +49,7 @@ class Versions(Enum):
 class ChatGPTConfig:
 	def __init__(self, chromedriver_path, chrome_path=None, token_folder: str = '.', session_token=None, chatgpt_version: Versions = Versions.gpt3_5__turbo, chrome_args=None):
 		try:
+			os.mkdir(token_folder)
 			open(f'{token_folder}/session_token.txt', 'x')
 		except FileExistsError:
 			pass
