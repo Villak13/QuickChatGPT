@@ -3,7 +3,7 @@ import time
 from markdownify import markdownify
 import undetected_chromedriver as uc
 from selenium.common import TimeoutException, NoSuchElementException
-from selenium.webdriver import Keys, Chrome, ChromeService
+from selenium.webdriver import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -27,7 +27,7 @@ class ChatGPT:
 
     def __init_browser(self, chrome_options):
         try:
-            self.driver = uc.Chrome(service=ChromeService(executable_path=self.__chromedriver_path), options=chrome_options)
+            self.driver = uc.Chrome(driver_executable_path=self.__chromedriver_path, options=chrome_options)
         except TypeError as e:
             if str(e) == 'expected str, bytes or os.PathLike object, not NoneType':
                 raise ValueError('Chrome installation not found')
