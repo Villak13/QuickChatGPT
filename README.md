@@ -22,3 +22,11 @@ print(response)
 response = api.regenerate_last_response()
 print(response)
 ```
+
+## Insipration
+
+This project is inspired by
+
+-   [ChatGPT](https://github.com/acheong08/ChatGPT)
+-   [chatgpt-api](https://github.com/transitive-bullshit/chatgpt-api)
+-   [pyChatGPT](https://github.com/terry3041/pyChatGPT)
