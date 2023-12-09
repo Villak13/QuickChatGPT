@@ -18,7 +18,8 @@ classifiers = [
 ]
 dependencies = [
     "selenium>=4.16.0", 
-    "markdownify>=0.11.6"
+    "markdownify>=0.11.6",
+    "undetected_chromedriver>=3.5.4"
 ]
 
 [project.urls]
