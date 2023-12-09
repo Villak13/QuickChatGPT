@@ -1,4 +1,23 @@
+import time
 
+from markdownify import markdownify
+import undetected_chromedriver as uc
+from selenium.common import TimeoutException, NoSuchElementException
+from selenium.webdriver import Keys
+from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from config import ChatGPTConfig, Selectors
+
+# Good luck programmer who have to work with this after me
+# Created by Villak :)
+
+
+class ChatGPT:
+    def __init__(self, config: ChatGPTConfig):
+        self.__chromedriver_path = config.chromedriver_path
+        self.__chatgpt_version = config.chatgpt_version
         self.chatgpt_chat_url = 'https://chat.openai.com/chat'
         
         self.__init_browser(config.options)
