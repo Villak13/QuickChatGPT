@@ -15,7 +15,9 @@ from .__config__ import ChatGPTConfig, Selectors
 
 
 class ChatGPT:
-    def __init__(self, config: ChatGPTConfig):
+    Config = ChatGPTConfig
+    
+    def __init__(self, config: Config):
         self.__chromedriver_path = config.chromedriver_path
         self.__chatgpt_version = config.chatgpt_version
         self.chatgpt_chat_url = 'https://chat.openai.com/chat'
