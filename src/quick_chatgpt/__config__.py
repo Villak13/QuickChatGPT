@@ -24,12 +24,11 @@ class Selectors(Enum):
 	dialog_textarea = (By.CSS_SELECTOR, 'div[role=dialog] textarea')
 
 
-def login_manually(chromedriver_path, options, token_folder):
+def login_manually(chromedriver_path, chrome_path, token_folder):
 	print('Login to openai using your account')
 	time.sleep(5)
 	opt = ChromeOptions()
-	for x in options.arguments:
-		opt.add_argument(x)
+	opt.binary_location = chrome_path
 	driver = uc.Chrome(options=opt, driver_executable_path=chromedriver_path)
 	driver.get('https://chat.openai.com/auth/login')
 
@@ -68,7 +67,7 @@ class ChatGPTConfig:
 			options.binary_location = chrome_path
 		self.options = options
 		
-		self.session_token = session_token or open(f'{token_folder}/session_token.txt', 'r').read() or login_manually(chromedriver_path, options, token_folder)
+		self.session_token = session_token or open(f'{token_folder}/session_token.txt', 'r').read() or login_manually(chromedriver_path, chrome_path, token_folder)
 		self.chromedriver_path = chromedriver_path
 		self.chatgpt_version = chatgpt_version
 
