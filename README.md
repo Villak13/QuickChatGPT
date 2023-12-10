@@ -6,7 +6,7 @@ This repo is unofficial ChatGPT api.
 from quick_chatgpt import ChatGPT, ChatGPTConfig
 
 config = ChatGPTConfig(
-	chromedriver_path=r'path/to/chromedriver.exe',
+	chromedriver_path=r'path/to/chromedriver',
 	chrome_path=r'path/to/chrome.exe'
 	#token_folder: str = r'folder/with/your/additional/files',
 	#session_token="could be 'None', but you would have to login in your openai account",
