@@ -88,7 +88,11 @@ class ChatGPT:
         if how_to_respond != '':
             self.__set_text_in_textarea(how_to_respond, textareas[1])
         time.sleep(.2)
-        textareas[0].find_element(By.XPATH, "../..//button[contains(., 'Save')]").click()
+        save = textareas[0].find_element(By.XPATH, "../..//button[contains(., 'Save')]")
+        if save.is_enabled():
+            save.click()
+        else:
+            textareas[0].find_element(By.XPATH, "../..//button[contains(., 'Cancel')]").click()
         time.sleep(0.3)
         self.create_new_chat()
         
