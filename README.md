@@ -24,7 +24,7 @@ print(response)
 
 api.set_custom_instructions(
 	knowledge='What would you like ChatGPT to know about you to provide better responses?', 
-    how_to_respond='How would you like ChatGPT to respond?'
+	how_to_respond='How would you like ChatGPT to respond?'
 )
 ```
 
