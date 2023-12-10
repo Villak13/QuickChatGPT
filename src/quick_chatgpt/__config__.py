@@ -62,7 +62,7 @@ class ChatGPTConfig:
 		except FileExistsError:
 			pass
 		options = ChromeOptions()
-		for arg in chrome_args or ['--headless', "--mute-audio"]:
+		for arg in chrome_args or ["--disable-gpu", '--no-sandbox', "--disable-extensions", "--start-maximized", "--headless=new"]:
 			options.add_argument(arg)
 		if chrome_path:
 			options.binary_location = chrome_path
