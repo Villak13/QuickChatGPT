@@ -3,9 +3,9 @@ This repo is unofficial ChatGPT api.
 
 ### Usage
 ```python
-from quick_chatgpt import *
+from quick_chatgpt import ChatGPT
 
-config = ChatGPTConfig(
+config = ChatGPT.Config(
 	chromedriver_path=r'path/to/chromedriver.exe',
 	chrome_path=r'path/to/chrome.exe'
 	#token_folder: str = r'folder/with/your/additional/files',
