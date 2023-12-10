@@ -23,6 +23,7 @@ class ChatGPT:
         self.chatgpt_chat_url = 'https://chat.openai.com/chat'
         
         self.__init_browser(config.options)
+        self.driver.maximize_window()
         self.change_session_token(config.session_token)
         self.driver.get(f'{self.chatgpt_chat_url}/')
         self.__remove_blocking_elements()
@@ -30,6 +31,7 @@ class ChatGPT:
     def __init_browser(self, chrome_options):
         try:
             self.driver = uc.Chrome(driver_executable_path=self.__chromedriver_path, options=chrome_options)
+            self.driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.731 YaBrowser/23.11.1.731 Yowser/2.5 Safari/537.36'})
         except TypeError as e:
             if str(e) == 'expected str, bytes or os.PathLike object, not NoneType':
                 raise ValueError('Chrome installation not found')
@@ -37,17 +39,17 @@ class ChatGPT:
         
     def __remove_blocking_elements(self):
         try:
-            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(Selectors.textinput.value))
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
         except TimeoutException:
             raise BaseException('Probably bad token, try to delete your session_token.txt file')
         try:
-            WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(Selectors.tips_window.value))
+            WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(Selectors.tips_window.value))
         except TimeoutException:
             pass
         try:
-            alpha = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(Selectors.alpha.value))
+            alpha = WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(Selectors.alpha.value))
             alpha.find_element(By.XPATH, '../../../button').click()
-            WebDriverWait(self.driver, 30).until_not(EC.presence_of_element_located(Selectors.alpha.value))
+            WebDriverWait(self.driver, 30).until_not(EC.visibility_of_element_located(Selectors.alpha.value))
             time.sleep(1)
         except TimeoutException:
             pass
@@ -55,7 +57,7 @@ class ChatGPT:
     def send_message(self, prompt):
         self.__send_text(prompt)
         try:
-            WebDriverWait(self.driver, 2).until(EC.presence_of_element_located(Selectors.go_down_button.value)).click()
+            WebDriverWait(self.driver, 2).until(EC.visibility_of_element_located(Selectors.go_down_button.value)).click()
         except TimeoutException:
             pass
         self.__wait_for_full_response()
@@ -76,11 +78,11 @@ class ChatGPT:
             return
         if len(knowledge) > 1500 or len(how_to_respond) > 1500:
             raise BaseException('''\'Knowledge\' and \'hot to respond\' texts had to have less than 1500 characters''')
-        menu_button = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(Selectors.menu_button.value))
+        menu_button = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.menu_button.value))
         menu_button.click()
         menu_button.find_element(By.XPATH, "..//a[text()='Custom instructions']").click()
 
-        textareas = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located(Selectors.dialog_textarea.value))
+        textareas = WebDriverWait(self.driver, 10).until(EC.visibility_of_all_elements_located(Selectors.dialog_textarea.value))
         if knowledge != '':
             self.__set_text_in_textarea(knowledge, textareas[0])
         if how_to_respond != '':
@@ -100,15 +102,15 @@ class ChatGPT:
         textarea.send_keys(Keys.BACKSPACE)
         
     def __send_text(self, text):
-        textarea = WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
+        textarea = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
         self.__set_text_in_textarea(text, textarea)
         self.driver.execute_script('arguments[0].click()', textarea.find_element(By.XPATH, '../button'))
         
     def __wait_for_full_response(self):
         while 1:
-            WebDriverWait(self.driver, 200).until_not(EC.presence_of_element_located(Selectors.running_indicator.value))
+            WebDriverWait(self.driver, 200).until_not(EC.visibility_of_element_located(Selectors.running_indicator.value))
             try:
-                WebDriverWait(self.driver, 3).until(EC.presence_of_element_located(Selectors.continue_generating.value)).click()
+                WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(Selectors.continue_generating.value)).click()
             except TimeoutException:
                 break
             
@@ -124,20 +126,20 @@ class ChatGPT:
             except NoSuchElementException:
                 pass
         
-        response = WebDriverWait(self.driver, 3).until(EC.presence_of_all_elements_located(Selectors.chatgpt_small_response.value))[-1]
+        response = WebDriverWait(self.driver, 3).until(EC.visibility_of_all_elements_located(Selectors.chatgpt_small_response.value))[-1]
         return markdownify(response.get_attribute('innerHTML')).replace('Copy code`', '`').strip()
     
     def get_last_chat(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
         self.driver.find_element(*Selectors.conversations.value).click()
         time.sleep(1)
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
     
     def create_new_chat(self):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
         self.driver.find_element(*Selectors.new_chat.value).click()
         time.sleep(1)
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(Selectors.textinput.value))
         
     def reflash_page(self):
         self.driver.refresh()
