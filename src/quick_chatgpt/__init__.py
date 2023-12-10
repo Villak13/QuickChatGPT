@@ -98,7 +98,7 @@ class ChatGPT:
         textarea.send_keys(Keys.BACKSPACE)
         
     def __send_text(self, text):
-        textarea = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(Selectors.textinput.value))
+        textarea = WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
         self.__set_text_in_textarea(text, textarea)
         self.driver.execute_script('arguments[0].click()', textarea.find_element(By.XPATH, '../button'))
         
@@ -126,14 +126,16 @@ class ChatGPT:
         return markdownify(response.get_attribute('innerHTML')).replace('Copy code`', '`').strip()
     
     def get_last_chat(self):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
         self.driver.find_element(*Selectors.conversations.value).click()
         time.sleep(1)
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
     
     def create_new_chat(self):
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
         self.driver.find_element(*Selectors.new_chat.value).click()
         time.sleep(1)
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(Selectors.textinput.value))
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_selected(Selectors.textinput.value))
         
     def reflash_page(self):
         self.driver.refresh()
