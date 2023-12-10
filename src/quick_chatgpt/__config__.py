@@ -19,6 +19,9 @@ class Selectors(Enum):
 	error_announcement = (By.XPATH, '//*[@id="__next"]/div[1]/div[2]/main/div[2]/div[1]/div/div/div/div[3]/div/div/div[2]/div[2]/div[1]/div/div[2]')
 	tips_window = (By.CSS_SELECTOR, '.relative.col-auto.col-start-2.row-auto.row-start-2.w-full.rounded-xl.text-left.shadow-xl.transition-all button')
 	regenerate_on_error = (By.XPATH, '//*[@id="__next"]/div[1]/div[2]/main/div[2]/div[2]/div[1]/div[2]/button')
+	menu_button = (By.CSS_SELECTOR, 'button:has(div.flex-shrink-0 > div > div > img)')
+	dialog = (By.CSS_SELECTOR, 'div[role=dialog]')
+	dialog_textarea = (By.CSS_SELECTOR, 'div[role=dialog] textarea')
 
 
 def login_manually(chromedriver_path, options, token_folder):
@@ -68,3 +71,4 @@ class ChatGPTConfig:
 		self.session_token = session_token or open(f'{token_folder}/session_token.txt', 'r').read() or login_manually(chromedriver_path, options, token_folder)
 		self.chromedriver_path = chromedriver_path
 		self.chatgpt_version = chatgpt_version
+
