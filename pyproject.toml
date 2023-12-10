@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "QuickChatGPT"
-version = "1.2.1"
+version = "1.4.1"
 authors = [
     { name="Villak44", email='metalvillak@gmail.com' },
 ]
